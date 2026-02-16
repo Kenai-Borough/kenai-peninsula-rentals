@@ -1,39 +1,38 @@
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { Hero } from './components/Hero';
-import { ListingsGrid } from './components/ListingsGrid';
-import { RelatedSites } from './components/RelatedSites';
-import { ContactForm } from './components/ContactForm';
-import { SEO } from './components/SEO';
-import { sampleListings } from './data/listings';
-import { siteConfig } from './lib/config';
-import './index.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import BrowsePage from './pages/BrowsePage'
+import ListingDetailPage from './pages/ListingDetailPage'
+import CreateListingPage from './pages/CreateListingPage'
+import DashboardPage from './pages/DashboardPage'
+import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
+import HowItWorksPage from './pages/HowItWorksPage'
+import SafetyPage from './pages/SafetyPage'
 
 function App() {
-  // Filter listings based on site type
-  const filteredListings = sampleListings.filter(listing => 
-    siteConfig.listingTypes.includes('all') || siteConfig.listingTypes.includes(listing.type)
-  );
-
   return (
-    <>
-      <SEO />
-      <div className="min-h-screen flex flex-col">
+    <Router>
+      <div className="min-h-screen flex flex-col bg-gray-50">
         <Header />
         <main className="flex-grow">
-          <Hero />
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ListingsGrid listings={filteredListings} />
-          </div>
-          
-          <RelatedSites />
-          <ContactForm />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/browse" element={<BrowsePage />} />
+            <Route path="/listing/:id" element={<ListingDetailPage />} />
+            <Route path="/create-listing" element={<CreateListingPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/safety" element={<SafetyPage />} />
+          </Routes>
         </main>
         <Footer />
       </div>
-    </>
-  );
+    </Router>
+  )
 }
 
-export default App;
+export default App
