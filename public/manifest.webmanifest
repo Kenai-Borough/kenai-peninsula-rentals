@@ -1,0 +1,17 @@
+{
+  "name": "Kenai Peninsula Rentals",
+  "short_name": "Kenai Rentals",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f0d",
+  "theme_color": "#1a472a",
+  "description": "Vacation and long-term rentals across the Kenai Peninsula.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
