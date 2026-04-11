@@ -1,90 +1,171 @@
-export interface User {
-  id: string;
-  email: string;
-  full_name?: string;
-  phone?: string;
-  created_at: string;
+export type UserRole = 'guest' | 'host' | 'admin'
+export type RentalType = 'cabin' | 'house' | 'apartment' | 'condo' | 'lodge' | 'yurt' | 'glamping' | 'rv-spot'
+export type StayDuration = 'nightly' | 'weekly' | 'monthly' | 'long-term'
+export type AvailabilityStatus = 'available' | 'booked' | 'blocked'
+export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed'
+export type SortOption = 'price' | 'rating' | 'newest' | 'popular'
+export type ViewMode = 'split' | 'list' | 'map'
+
+export interface Profile {
+  id: string
+  email: string
+  fullName: string
+  role: UserRole
+  phone: string
+  avatarUrl: string
+  bio: string
+  responseTimeHours: number
+  isSuperhost: boolean
+  rating: number
+  reviewCount: number
+  createdAt: string
 }
 
-export interface RentalListing {
-  id: string;
-  user_id: string;
-  title: string;
-  description: string;
-  monthly_rent: number;
-  
-  property_type: 'apartment' | 'house' | 'condo' | 'room' | 'cabin' | 'other';
-  bedrooms: number;
-  bathrooms: number;
-  square_feet?: number;
-  
-  lease_term: 'month-to-month' | '6-month' | '1-year' | 'flexible';
-  available_date: string;
-  security_deposit: number;
-  first_last_required: boolean;
-  
-  utilities_included: string[];
-  
-  pets_allowed: boolean;
-  pet_deposit?: number;
-  pet_restrictions?: string;
-  
-  furnished: boolean;
-  parking_spaces: number;
-  laundry: 'in-unit' | 'shared' | 'none';
-  heating_type: string;
-  
-  location: string;
-  neighborhood?: string;
-  latitude?: number;
-  longitude?: number;
-  
-  images: string[];
-  video_url?: string;
-  virtual_tour_url?: string;
-  
-  status: 'pending' | 'active' | 'rented' | 'expired';
-  payment_status: 'unpaid' | 'paid';
-  featured: boolean;
-  featured_until?: string;
-  
-  views: number;
-  created_at: string;
-  updated_at: string;
-  expires_at: string;
-  
-  user?: User;
+export interface SeasonalPricing {
+  id: string
+  propertyId: string
+  name: string
+  startDate: string
+  endDate: string
+  priceMultiplier: number
+  label: string
 }
 
-export interface PaymentIntent {
-  id: string;
-  user_id: string;
-  listing_id?: string;
-  amount: number;
-  type: 'listing' | 'featured';
-  stripe_payment_id?: string;
-  status: 'pending' | 'completed' | 'failed';
-  created_at: string;
+export interface Property {
+  id: string
+  hostId: string
+  title: string
+  description: string
+  summary: string
+  type: RentalType
+  address: string
+  city: string
+  lat: number
+  lng: number
+  bedrooms: number
+  bathrooms: number
+  maxGuests: number
+  sqft: number
+  amenities: string[]
+  photos: string[]
+  houseRules: string[]
+  cancellationPolicy: string
+  nightlyRate: number
+  weeklyRate: number
+  monthlyRate: number
+  cleaningFee: number
+  minStay: number
+  maxStay: number
+  isLongTerm: boolean
+  petFriendly: boolean
+  status: 'draft' | 'active' | 'paused'
+  rating: number
+  reviewCount: number
+  viewCount: number
+  featured: boolean
+  popularityScore: number
+  featuredLabel: string
+  hostResponseTime: string
+  nearbyAttractions: string[]
+  durationOptions: StayDuration[]
+  seasonalPricing: SeasonalPricing[]
+  createdAt: string
+  updatedAt: string
+}
+
+export interface AvailabilityDay {
+  propertyId: string
+  date: string
+  status: AvailabilityStatus
+  priceOverride?: number
+}
+
+export interface Review {
+  id: string
+  bookingId: string
+  reviewerId: string
+  revieweeId: string
+  propertyId: string
+  rating: number
+  cleanliness: number
+  communication: number
+  location: number
+  value: number
+  comment: string
+  createdAt: string
+}
+
+export interface Booking {
+  id: string
+  propertyId: string
+  guestId: string
+  checkIn: string
+  checkOut: string
+  guests: number
+  totalPrice: number
+  cleaningFee: number
+  serviceFee: number
+  status: BookingStatus
+  specialRequests: string
+  createdAt: string
 }
 
 export interface Message {
-  id: string;
-  listing_id: string;
-  from_user_id: string;
-  to_user_id: string;
-  message: string;
-  read: boolean;
-  created_at: string;
+  id: string
+  bookingId: string
+  senderId: string
+  receiverId: string
+  content: string
+  read: boolean
+  createdAt: string
+}
+
+export interface HostPayout {
+  id: string
+  hostId: string
+  bookingId: string
+  amount: number
+  status: 'pending' | 'paid'
+  paidAt: string
+}
+
+export interface LongTermApplication {
+  id: string
+  propertyId: string
+  applicantId: string
+  employment: string
+  income: string
+  references: { name: string; relationship: string }[]
+  status: 'submitted' | 'reviewing' | 'approved'
+  createdAt: string
 }
 
 export interface SearchFilters {
-  minRent?: number;
-  maxRent?: number;
-  propertyType?: string[];
-  minBedrooms?: number;
-  minBathrooms?: number;
-  petsAllowed?: boolean;
-  leaseTerm?: string;
-  location?: string;
-  sortBy?: 'rent_asc' | 'rent_desc' | 'bedrooms_desc' | 'newest';
+  location: string
+  checkIn: string
+  checkOut: string
+  adults: number
+  children: number
+  pets: number
+  rentalTypes: RentalType[]
+  duration: StayDuration | ''
+  priceRange: [number, number]
+  amenities: string[]
+  sortBy: SortOption
+  viewMode: ViewMode
+  query: string
+  longTermOnly: boolean
+}
+
+export interface DashboardMetric {
+  label: string
+  value: string
+  detail: string
+}
+
+export interface Testimonial {
+  name: string
+  location: string
+  quote: string
+  rating: number
 }
