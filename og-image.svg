@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0a0f0d"/>
+  <rect x="48" y="48" width="1104" height="534" rx="36" fill="#121816" stroke="#8B6914" stroke-width="2"/>
+  <path d="M120 462L330 210l150 170 145-238 220 320H120Z" fill="#1a472a"/>
+  <path d="M212 488L408 258l110 126 120-150 170 254H212Z" fill="#8B6914"/>
+  <text x="120" y="150" fill="#F6F1E5" font-family="Arial, sans-serif" font-size="64" font-weight="700">Kenai Peninsula Rentals</text>
+  <text x="120" y="218" fill="#B7BEB7" font-family="Arial, sans-serif" font-size="28">Cabins, lodges, harbor condos, and long-term homes</text>
+  <text x="120" y="258" fill="#B7BEB7" font-family="Arial, sans-serif" font-size="28">for salmon season, aurora nights, and Alaska moves.</text>
+</svg>
