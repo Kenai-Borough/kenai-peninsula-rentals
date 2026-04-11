@@ -1,99 +1,42 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import SEO from '../components/SEO'
+import { useToast } from '../components/ToastProvider'
 import { signUp } from '../lib/supabase'
+import { buildStructuredData } from '../lib/utils'
+import type { UserRole } from '../types'
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [role, setRole] = useState<UserRole>('guest')
   const navigate = useNavigate()
+  const { pushToast } = useToast()
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
-
-    const { error } = await signUp(email, password, fullName)
-    
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
+    const { error } = await signUp(email, password, fullName, role)
     if (error) {
-      setError(error.message)
-      setLoading(false)
-    } else {
-      alert('Check your email to confirm your account!')
-      navigate('/login')
+      pushToast({ tone: 'error', title: 'Sign-up failed', message: error.message })
+      return
     }
+    pushToast({ tone: 'success', title: 'Account created', message: 'Check your inbox if Supabase email confirmation is enabled.' })
+    navigate('/dashboard')
   }
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16">
-      <div className="bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-6 text-center">Create Account</h1>
-
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name
-            </label>
-            <input
-              type="text"
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
-            </label>
-            <input
-              type="email"
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              required
-              minLength={6}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
-          >
-            {loading ? 'Creating account...' : 'Create Account'}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center text-sm text-gray-600">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline font-semibold">
-            Sign in here
-          </Link>
-        </div>
-      </div>
+    <div className="mx-auto max-w-md px-4 py-16">
+      <SEO title="Create account" description="Create a guest or host account on Kenai Peninsula Rentals." structuredData={buildStructuredData()} />
+      <form onSubmit={handleSubmit} className="rounded-[32px] border border-white/10 bg-[var(--panel)] p-8 shadow-2xl">
+        <h1 className="text-3xl font-semibold">Create your account</h1>
+        <label className="field mt-5"><span>Full name</span><input value={fullName} onChange={(event) => setFullName(event.target.value)} /></label>
+        <label className="field mt-4"><span>Email</span><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label>
+        <label className="field mt-4"><span>Password</span><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={6} /></label>
+        <label className="field mt-4"><span>Account type</span><select value={role} onChange={(event) => setRole(event.target.value as UserRole)}><option value="guest">Guest</option><option value="host">Host</option></select></label>
+        <button className="mt-6 w-full rounded-full bg-gradient-to-r from-amber-400 to-emerald-500 px-5 py-3 font-semibold text-slate-950">Create account</button>
+        <p className="mt-5 text-sm text-[var(--muted)]">Already joined? <Link to="/login" className="font-semibold text-emerald-600">Sign in</Link></p>
+      </form>
     </div>
   )
 }
