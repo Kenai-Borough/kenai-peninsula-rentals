@@ -36,7 +36,10 @@ export default function HomePage() {
     <div>
       <SEO title="Kenai Peninsula Rentals | Kenai Peninsula, Alaska" description="Book Kenai Peninsula vacation rentals, Alaska cabins, fishing lodges, and long-term stays with local hosts across Homer, Seward, Kenai, and beyond." structuredData={buildStructuredData()} />
       <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,105,20,0.34),transparent_36%),linear-gradient(135deg,#08110f_0%,#1a472a_46%,#111827_100%)]" />
+        <div className="absolute inset-0">
+          <img src="/hero-illustration.svg" alt="" aria-hidden="true" className="h-full w-full object-cover opacity-90" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,105,20,0.34),transparent_36%),linear-gradient(135deg,rgba(8,17,15,.88)_0%,rgba(26,71,42,.74)_46%,rgba(17,24,39,.8)_100%)]" />
+        </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-18 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
           <div>
             <motion.span initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="inline-flex rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-amber-200">Alaska-first rental marketplace</motion.span>
@@ -49,6 +52,10 @@ export default function HomePage() {
             </div>
           </div>
           <div className="rounded-[32px] border border-white/10 bg-white/10 p-5 backdrop-blur-xl shadow-2xl shadow-slate-950/30">
+            <div className="relative mb-4 overflow-hidden rounded-[26px] border border-white/10 bg-slate-950/40">
+              <img src="/hero-illustration.svg" alt="" aria-hidden="true" className="h-36 w-full object-cover" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/85 to-transparent p-4 text-sm text-amber-50">Twilight cabins, lake reflections, and peninsula mornings.</div>
+            </div>
             <div className="grid gap-4 md:grid-cols-2">
               <label className="field"><span>Location</span><select value={search.location} onChange={(event) => setSearch({ ...search, location: event.target.value })}>{communities.slice(0, 8).map((community) => <option key={community}>{community}</option>)}</select></label>
               <label className="field"><span>Rental type</span><select value={search.type} onChange={(event) => setSearch({ ...search, type: event.target.value })}><option value="cabin">Cabin</option><option value="house">House</option><option value="apartment">Apartment</option><option value="condo">Condo</option><option value="lodge">Lodge</option><option value="yurt">Yurt</option><option value="glamping">Glamping</option><option value="rv-spot">RV spot</option></select></label>

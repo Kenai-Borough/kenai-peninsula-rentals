@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <rect width="128" height="128" rx="28" fill="#0a0f0d"/>
-  <path d="M18 92L46 48l18 24 18-32 28 52H18Z" fill="#1a472a"/>
-  <path d="M34 96L58 58l16 22 14-18 18 34H34Z" fill="#8B6914"/>
-  <path d="M64 22l4 10 11 1-8 7 2 11-9-6-9 6 2-11-8-7 11-1 4-10Z" fill="#F6D57A"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none"><defs><linearGradient id="bg" x1="18" x2="111" y1="12" y2="116" gradientUnits="userSpaceOnUse"><stop stop-color="#142139"/><stop offset=".58" stop-color="#264c60"/><stop offset="1" stop-color="#173125"/></linearGradient></defs><rect width="128" height="128" rx="28" fill="url(#bg)"/><path fill="#654126" d="M31 96V51l33-23 33 23v45H31Z"/><path fill="#f7c16f" d="M51 60h10v12H51zM68 60h10v12H68z"/><path d="M64 21c12 12 18 24 18 35" stroke="#d9e7ef" stroke-width="6" stroke-linecap="round"/><text x="31" y="114" fill="#fff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="34" font-weight="800">KP</text></svg>
