@@ -8,6 +8,7 @@ import PropertyCard from '../components/PropertyCard'
 import { communities, seasonalHighlights } from '../data/rentals'
 import { marketplace } from '../lib/marketplace'
 import { buildStructuredData } from '../lib/utils'
+import { CrossTrafficAds } from '../components/CrossTrafficAds'
 
 export default function HomePage() {
   const navigate = useNavigate()
@@ -33,7 +34,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <SEO title="Kenai Peninsula Rentals | Alaska cabins, lodges, and long-term homes" description="Book Alaska cabins, lodges, harbor condos, and long-term rentals across the Kenai Peninsula." structuredData={buildStructuredData()} />
+      <SEO title="Kenai Peninsula Rentals | Kenai Peninsula, Alaska" description="Book Kenai Peninsula vacation rentals, Alaska cabins, fishing lodges, and long-term stays with local hosts across Homer, Seward, Kenai, and beyond." structuredData={buildStructuredData()} />
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,105,20,0.34),transparent_36%),linear-gradient(135deg,#08110f_0%,#1a472a_46%,#111827_100%)]" />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-18 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
@@ -131,6 +132,7 @@ export default function HomePage() {
           <Link to="/create-listing" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-slate-900">Start hosting <MapPin size={16} /></Link>
         </div>
       </section>
-    </div>
+          <CrossTrafficAds />
+</div>
   )
 }

@@ -153,11 +153,25 @@ export function buildStructuredData(property?: Property) {
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'LodgingBusiness',
-    name: 'Kenai Peninsula Rentals',
-    url: 'https://kenaipeninsularentals.com',
-    description: 'Local-first vacation and long-term rentals across the Kenai Peninsula.',
-    areaServed: 'Kenai Peninsula Borough',
+    '@graph': [
+      {
+        '@type': 'LodgingBusiness',
+        name: 'Kenai Peninsula Rentals',
+        url: 'https://kenaipeninsularentals.com',
+        description: 'Local-first vacation and long-term rentals across the Kenai Peninsula.',
+        areaServed: 'Kenai Peninsula Borough',
+      },
+      {
+        '@type': 'WebSite',
+        name: 'Kenai Peninsula Rentals',
+        url: 'https://kenaipeninsularentals.com',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://kenaipeninsularentals.com/browse?query={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
   }
 }
 
