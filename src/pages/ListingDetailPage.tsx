@@ -129,7 +129,7 @@ export default function ListingDetailPage() {
           </div>
 
           <div className="rounded-[28px] border border-white/10 bg-[var(--panel)] p-6 shadow-xl">
-            <div className="flex items-center gap-4"><img src={host.avatarUrl} alt={host.fullName} className="h-16 w-16 rounded-2xl object-cover" /><div><p className="text-xs uppercase tracking-[0.22em] text-amber-500">Hosted by</p><h3 className="text-xl font-semibold">{host.fullName}</h3><p className="text-sm text-[var(--muted)]">Responds in {property.hostResponseTime}</p></div></div>
+            <div className="flex items-center gap-4"><img src={host.avatarUrl} alt={host.fullName} loading="lazy" width="128" height="128" className="h-16 w-16 rounded-2xl object-cover" /><div><p className="text-xs uppercase tracking-[0.22em] text-amber-500">Hosted by</p><h3 className="text-xl font-semibold">{host.fullName}</h3><p className="text-sm text-[var(--muted)]">Responds in {property.hostResponseTime}</p></div></div>
             <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{host.bio}</p>
             <div className="mt-4 flex flex-wrap gap-2 text-sm text-[var(--muted)]"><span className="chip"><ShieldCheck size={14} /> {host.isSuperhost ? 'Superhost' : 'Verified host'}</span><span className="chip"><Star size={14} className="fill-amber-400 text-amber-400" /> {host.rating}</span></div>
             <button className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-[var(--text)]" type="button"><MessageSquare size={16} /> Message host</button>

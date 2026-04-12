@@ -37,7 +37,7 @@ export default function HomePage() {
       <SEO title="Kenai Peninsula Rentals | Kenai Peninsula, Alaska" description="Book Kenai Peninsula vacation rentals, Alaska cabins, fishing lodges, and long-term stays with local hosts across Homer, Seward, Kenai, and beyond." structuredData={buildStructuredData()} />
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0">
-          <img src="/hero-illustration.svg" alt="" aria-hidden="true" className="h-full w-full object-cover opacity-90" />
+          <img src="/hero-illustration.svg" alt="" aria-hidden="true" loading="lazy" width="1600" height="900" className="h-full w-full object-cover opacity-90" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,105,20,0.34),transparent_36%),linear-gradient(135deg,rgba(8,17,15,.88)_0%,rgba(26,71,42,.74)_46%,rgba(17,24,39,.8)_100%)]" />
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-18 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
@@ -53,7 +53,7 @@ export default function HomePage() {
           </div>
           <div className="rounded-[32px] border border-white/10 bg-white/10 p-5 backdrop-blur-xl shadow-2xl shadow-slate-950/30">
             <div className="relative mb-4 overflow-hidden rounded-[26px] border border-white/10 bg-slate-950/40">
-              <img src="/hero-illustration.svg" alt="" aria-hidden="true" className="h-36 w-full object-cover" />
+              <img src="/hero-illustration.svg" alt="" aria-hidden="true" loading="lazy" width="1600" height="900" className="h-36 w-full object-cover" />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/85 to-transparent p-4 text-sm text-amber-50">Twilight cabins, lake reflections, and peninsula mornings.</div>
             </div>
             <div className="grid gap-4 md:grid-cols-2">

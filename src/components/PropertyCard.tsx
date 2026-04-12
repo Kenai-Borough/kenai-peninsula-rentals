@@ -9,10 +9,10 @@ export default function PropertyCard({ property }: { property: Property }) {
     <motion.article whileHover={{ y: -6 }} className="overflow-hidden rounded-[28px] border border-white/10 bg-[var(--panel)] shadow-xl shadow-black/10">
       <Link to={'/listing/' + property.id}>
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img src={property.photos[0]} alt={property.title} className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+          <img src={property.photos[0]} alt={property.title} loading="lazy" width="1400" height="900" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
           <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
             <span className="rounded-full bg-black/40 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">{property.featuredLabel}</span>
-            <button className="rounded-full bg-black/30 p-2 text-white backdrop-blur" type="button"><Heart size={16} /></button>
+            <button className="rounded-full bg-black/30 p-2 text-white backdrop-blur" type="button" aria-label="Save rental"><Heart size={16} /></button>
           </div>
         </div>
       </Link>
