@@ -35,6 +35,7 @@ export default function SignUpPage() {
         <label className="field mt-4"><span>Password</span><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={6} /></label>
         <label className="field mt-4"><span>Account type</span><select value={role} onChange={(event) => setRole(event.target.value as UserRole)}><option value="guest">Guest</option><option value="host">Host</option></select></label>
         <button className="mt-6 w-full rounded-full bg-gradient-to-r from-amber-400 to-emerald-500 px-5 py-3 font-semibold text-slate-950">Create account</button>
+        <p className="mt-3 text-xs text-slate-400">By creating an account, you agree to our <Link to="/terms" className="text-sky-400 hover:underline">Terms of Service</Link> and <Link to="/privacy" className="text-sky-400 hover:underline">Privacy Policy</Link>.</p>
         <p className="mt-5 text-sm text-[var(--muted)]">Already joined? <Link to="/login" className="font-semibold text-emerald-600">Sign in</Link></p>
       </form>
     </div>
