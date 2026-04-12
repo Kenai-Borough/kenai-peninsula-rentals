@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { useToast } from '../components/ToastProvider'
 import { signUp } from '../lib/supabase'
+import { emailService } from '../lib/email'
+import { emailTemplates } from '../lib/email-templates'
 import { buildStructuredData } from '../lib/utils'
 import type { UserRole } from '../types'
 
@@ -21,7 +23,9 @@ export default function SignUpPage() {
       pushToast({ tone: 'error', title: 'Sign-up failed', message: error.message })
       return
     }
-    pushToast({ tone: 'success', title: 'Account created', message: 'Check your inbox if Supabase email confirmation is enabled.' })
+    const welcome = emailTemplates.welcomeEmail({ recipientName: fullName || 'there', dashboardUrl: `${window.location.origin}/dashboard` })
+    const result = await emailService.send({ to: email, ...welcome, metadata: { notificationType: 'welcome-email', userRole: role } })
+    pushToast({ tone: 'success', title: 'Account created', message: result.queued ? 'Your account is ready. Email delivery may be delayed.' : 'Check your inbox for your branded welcome email.' })
     navigate('/dashboard')
   }
 

@@ -5,6 +5,8 @@ import SEO from '../components/SEO'
 import { useToast } from '../components/ToastProvider'
 import { browseAmenities, communities } from '../data/rentals'
 import { buildStructuredData, classNames } from '../lib/utils'
+import { emailService } from '../lib/email'
+import { emailTemplates } from '../lib/email-templates'
 
 const steps = ['Property type', 'Space details', 'Amenities', 'Photos', 'Pricing', 'Availability', 'Policies']
 
@@ -35,8 +37,10 @@ export default function CreateListingPage() {
     setPhotos(next)
   }
 
-  function handleSubmit() {
-    pushToast({ tone: 'success', title: 'Listing draft saved', message: 'Your 7-step host flow is ready for Supabase persistence and Stripe onboarding.' })
+  async function handleSubmit() {
+    const listingEmail = emailTemplates.eventSubmissionConfirmation({ eventName: 'Rental listing draft', dashboardUrl: `${window.location.origin}/dashboard` })
+    const result = await emailService.send({ to: 'hello@kenaipeninsularentals.com', ...listingEmail, subject: 'Rental listing draft saved', metadata: { notificationType: 'listing-created', amenities: amenities.join(', ') } })
+    pushToast({ tone: 'success', title: 'Listing draft saved', message: result.queued ? 'Your 7-step host flow is saved. Email delivery may be delayed.' : 'Your 7-step host flow is ready for Supabase persistence and Stripe onboarding.' })
     setStep(0)
   }
 

@@ -5,6 +5,8 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { useToast } from '../components/ToastProvider'
 import { marketplace } from '../lib/marketplace'
+import { emailService } from '../lib/email'
+import { emailTemplates } from '../lib/email-templates'
 import { buildStructuredData, calculateBookingBreakdown, formatCurrency, formatDate } from '../lib/utils'
 
 const steps = ['Review stay', 'Guest details', 'Payment']
@@ -23,9 +25,16 @@ export default function BookingFlow() {
   const pricing = useMemo(() => (property ? calculateBookingBreakdown(property, checkIn, checkOut, guests) : null), [property, checkIn, checkOut, guests])
 
   if (!property || !pricing) return <div className="mx-auto max-w-4xl px-4 py-20 text-center text-[var(--muted)]">Booking unavailable.</div>
+  const currentProperty = property
 
-  function confirmBooking() {
-    pushToast({ tone: 'success', title: 'Booking request submitted', message: 'Stripe handoff placeholder completed. This stay is ready for API-backed checkout.' })
+  async function confirmBooking() {
+    const hostNotice = emailTemplates.bookingRequest({ propertyTitle: currentProperty.title, guestName: name || 'Kenai guest', stayDates: `${checkIn} to ${checkOut}`, guestCount: String(guests), detailUrl: window.location.href })
+    const guestNotice = emailTemplates.bookingConfirmation({ guestName: name || 'there', propertyTitle: currentProperty.title, stayDates: `${checkIn} to ${checkOut}`, itineraryUrl: `${window.location.origin}/dashboard` })
+    const results = await Promise.all([
+      emailService.send({ to: marketplace.getProfile(currentProperty.hostId)?.email ?? 'hello@kenaipeninsularentals.com', ...hostNotice, metadata: { notificationType: 'booking-request', propertyId: currentProperty.id, specialRequests } }),
+      emailService.send({ to: 'guest@kenaipeninsularentals.com', ...guestNotice, metadata: { notificationType: 'booking-confirmation', propertyId: currentProperty.id } }),
+    ])
+    pushToast({ tone: 'success', title: 'Booking request submitted', message: results.some((result) => result.queued) ? 'Booking saved. Email delivery may be delayed.' : 'Stripe handoff placeholder completed. Booking emails were prepared successfully.' })
     setStep(0)
   }
 
